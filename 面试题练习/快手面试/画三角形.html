@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .trl{
+            width: 0;
+            height: 0;
+            border-width: 30px;
+            border-color: transparent transparent salmon;
+            border-style: solid;
+        }
+        .crl{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 1px red solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="trl"></div>
+    <div class="crl"></div>
+    <div class="item">点击</div>
+    <script>
+        let item = document.getElementsByClassName('item')[0];
+        for(var i = 0; i < 3; i++){
+            item.addEventListener('click',function(){
+                console.log(i);
+            })
+        }
+        var a = 1,b =0,c =0;
+        var fun = function(a){
+            return a = a+1;
+        }
+        function fun(a){
+            return a= a+3;
+        }
+        
+        b = fun(a);
+        console.log(b);
+
+        c = fun(a);
+        console.log(c);
+        console.log(a);
+    
+    </script>
+</body>
+</html>

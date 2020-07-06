@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <script>
+        //第一题 将数组转化为 对象
+        let arr= [
+            {x:1},
+            {y:2},
+            {z:3},
+            {k:4}
+        ]    
+        // {x:1,y:2,z:3}
+        console.log(...arr);
+        function arrToStr(arr){
+            return Object.assign({},...arr);
+        }
+        console.log(arrToStr(arr));
+
+        //第二题 : 两个有序字符串，拼接成一个有序字符串  str1 = 'abcdef'，str2 = 'defgklm';
+
+        function sortStr(str1,str2,res = ''){
+            if(!str1) {
+                return res + str2;
+            }
+            if(!str2) {
+                return res +str1;
+            }
+            let a = str1.charAt(0);
+            let b = str2.charAt(0);
+            if(a < b){
+                res += a;
+                str1 = str1.substring(1);
+            }else{
+                res += b;
+                str2 = str2.substring(1);                
+            }
+            return sortStr(str1,str2,res);
+        }
+        let str1 = 'aabcdef';
+        let str2 = 'adgl';
+        console.log(sortStr(str1,str2));
+        
+    </script>
+</body>
+</html>

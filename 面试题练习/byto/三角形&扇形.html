@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .triangle {
+        width: 0;
+        height: 0;
+        border-top: 100px transparent solid;
+        border-left: 100px transparent solid;
+        border-right: 100px transparent solid;
+        border-bottom: 100px red solid;
+        /* border-right: 200px solid black; */
+      }
+      .sector {
+        width: 0;
+        height: 0;
+        border-radius: 100%;
+        border-top: 100px transparent solid;
+        border-left: 100px transparent solid;
+        border-right: 100px black solid;
+        border-bottom: 100px red solid;
+      }
+
+      .parallelogram {
+        width: 100px;
+        height: 100px;
+        transform: skew(0deg,45deg);
+        background: greenyellow;
+      }
+    </style>
+  </head>
+  <body style="display: flex; flex-direction: row;justify-content: space-around; ">
+    <div class="triangle"></div>
+    <div class="sector"></div>
+    <div class="parallelogram"></div>
+  </body>
+</html>
