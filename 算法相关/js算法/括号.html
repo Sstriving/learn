@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+    <script>
+        //判断括号是否成对出现
+        let str = '()()(((())))';
+        function fn(str) {
+            let arr = [];
+            for(let i = 0; i < str.length; i++) {
+                if(!arr.length && str[i] === ')') {
+                    return false
+                }
+                if(str[i] === '('){
+                    arr.push(str[i])
+                }
+                if(str[i] === ')'){
+                    arr.pop()
+                }
+                console.log(arr)
+            }
+            return arr.length ? false:true
+        }
+        console.log(fn(str))
+
+
+
+    </script>
+</body>
+
+</html>

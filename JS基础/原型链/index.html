@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <script>
+        function Fn(){
+            this.a  = 1;
+        };
+        let obj = new Object();
+
+
+        Fn.prototype.alert = function(){
+            console.log(111);
+        }
+        let fn = new Fn();
+        fn.alert();
+        if(fn.__proto__ == Fn.prototype){
+            console.log('这两个竟然是相等的')
+        }
+        console.log(fn);
+        console.log(fn.toString);
+        console.log(Fn.prototype.constructor === Fn);
+        
+        function Foo() {}
+        Foo.prototype = {
+            a: 100,
+            b: 200
+        }
+        var f1 = new Foo();
+        f1.a = 10;
+        alert(f1.a); //10
+        alert(f1.b); //200
+    </script>
+</body>
+</html>

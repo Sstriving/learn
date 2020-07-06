@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+     * 给定一个整数数组和一个目标值， 找出数组中和为目标值的两个数。
+     你可以假设每个输入只对应一种答案， 且同样的元素不能被重复利用。
+     示例:
+         给定 nums = [2, 7, 11, 15], target = 9
+     因为 nums[0] + nums[1] = 2 + 7 = 9
+     所以返回[0, 1]
+     */
+        let arr = [2, 7, 11, 15]
+        let target = 17;
+        // var selectIndex = function (arr, target) {
+        //     for (let i = 0; i < arr.length; i++) {
+        //         let add1 = target - arr[0];
+        //         let add2 = arr.indexOf(add1);
+        //         if (add2 > -1) {
+        //             return [i, add2]
+        //         }
+        //     }
+        // }
+        // console.log(selectIndex(arr, target))
+        // 不使用indexOf
+        var selectIndex2 = function (arr, target) {
+            let map = {};
+            for(let i = 0; i < arr.length; i++) {
+                let v = arr[i];
+                if(map[target-v] >= 0){
+                    return [map[target-v],i]
+                }else{
+                    map[v] = i
+                }
+            }
+        }
+        console.log(selectIndex2(arr,target))
+    </script>
+</body>
+
+</html>

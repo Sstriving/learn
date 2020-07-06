@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function selfMap(fn, arr) {
+            return arr.reduce((acc, value, index) => {
+                return acc.concat([fn.call(null, value, index, arr)])
+            }, [])
+        }
+        let arr = [1, 2, 3]
+        let newArr = selfMap(item => {
+            console.log(this);
+            return item + 1
+        }, arr)
+        console.log(newArr)
+
+        const nSum = (arr, n, target) => {
+            if (!arr.length) return
+            let result = []
+            const len = arr.length
+            const nsum = (arr, left, n, target, res) => {
+                if (left >= len - 1 || n <= 0) return
+                for (let i = left; i < len; i++) {
+                    if (arr[i] === target && n === 1) {
+                        result.push([...res, arr[i]])
+                    } else {
+                        nsum(arr, i + 1, n - 1, target - arr[i], [...res, arr[i]])
+                    }
+                }
+            }
+            nsum(arr, 0, n, target, [])
+            return result;
+        }
+    </script>
+</body>
+
+</html>

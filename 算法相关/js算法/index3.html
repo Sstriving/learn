@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * 给定一个大小为 n 的数组， 找到其中的众数。 众数是指在数组中出现次数大于⌊ n / 2⌋ 的元素。
+         你可以假设数组是非空的， 并且给定的数组总是存在众数。
+         输入: [2, 2, 1, 1, 1, 2, 2]
+         输出: 2
+         注意一个数组中不可能有多个众数， 因为众数个数大于一半
+         */
+        let arr = [2, 2, 1, 1, 1, 2, 2,1,1,1,1,1]
+        let generate = function (arr) {
+            let length = Math.floor(arr.length / 2)
+            let obj = arr.reduce(function (pur, cur) {
+                if (cur in pur) {
+                    pur[cur]++;
+                } else {
+                    pur[cur] = 1;
+                }
+                return pur;
+            }, {});
+            for(let i in obj) {
+                if(obj[i] > length) {
+                    return i;
+                }
+            }
+        }
+        console.log(generate(arr))
+
+
+    </script>
+</body>
+
+</html>

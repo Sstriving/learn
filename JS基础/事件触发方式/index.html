@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+<body>
+    <div id="btn">
+        点我
+    </div>
+    <div id="btn1">
+            清除
+        </div>
+    <script>
+        // let btn = document.getElementById('btn');
+        // let btn1 = document.getElementById('btn1');
+
+        // function my (){
+        //     alert(222);
+        // }
+        // btn.addEventListener('click',my);
+
+        // btn1.addEventListener('click',function(){
+        //     btn.removeEventListener('click',my);
+        // });
+
+        // var str = 'asdfssaaasasasasaa';
+
+        // function strMax(str){
+        //     let obj = {};
+        //     for(let i = 0; i < str.length; i++){
+        //         if(!obj[str[i]]){
+        //             obj[str[i]] = 1;
+        //         }else{
+        //             obj[str[i]]++;
+        //         }
+        //     }
+        //     let index = '';
+        //     let num = 0;
+        //     for(let i in obj){
+        //         if(obj[i] > num){
+        //             num = obj[i];
+        //             index = i;
+        //         }
+        //     }
+        //     console.log('最多的字符为'+index+'出现'+num+'次');
+        // }
+        // strMax(str);
+
+        // 数组去重
+        // let arr = [1,2,3,4,4,4,4,2,3,1111];
+        // let newArr = Array.from(new Set(arr));
+        // console.log(newArr);
+        // function unqueriArr(arr){
+        //     let newArr = [];
+        //     for(let i = 0; i < arr.length; i++){
+        //         if(newArr.indexOf(arr[i]) == -1){
+        //             newArr.push(arr[i]);
+        //         }  
+        //     }
+        //     return newArr;
+        // }
+        // console.log(unqueriArr(arr));
+
+        // 递归
+        /*******利用 javascript递归实现倒金字塔型数据排列，
+        列如：
+        123454321、23456765432
+        输入 {n,m}; n为金字塔最小数，m为金字塔最大数
+        ******/
+    //    function num(n,m){
+    //        console.log(n);
+
+    //        if(n < m){
+    //            num(n+1,m);
+    //            console.log('看这里'+n);   
+    //        }
+    //    }
+    //    num(1,5);
+    // function digui(n){
+    //     if(n <= 1) return 1;
+    //     let res = 1;
+    //     while( n > 1 ){
+    //         res = res*n;
+    //         n--;
+    //     }
+    //     return res;
+    // }
+    // console.log(digui(3));
+
+    // 斐波纳切数列
+    // function fibonacci(n,i = 1, j = 1){
+    //     if(n == 1 || n == 2){
+    //         return j;
+    //     }
+    //     return fibonacci(n-1,j,i+j);
+    // }
+    // console.log( fibonacci(10));
+
+    // function fibonacciNew(n){
+    //     if(n == 1 || n == 2){
+    //         return 1;
+    //     }
+    //     let res = 0;
+    //     let k = 1;
+    //     let f = 1;
+    //     for(let i = 3; i <= n; i++){
+    //         res = k + f;
+    //         k = f;
+    //         f = res;
+    //     }
+    //     return res;
+    // }
+    // console.log(fibonacciNew(10));
+
+    /*******二分查找
+     * 1.递归实现
+     */
+    // let arr = [1,2,3,5,6,7,8,100,102];
+    // function select(arr, target,low = 0,high = arr.length-1){
+    //     if(low <= high){
+    //         let mid = Math.floor((low+high)/2);
+    //         if(arr[mid] == target){
+    //             return mid;
+    //         }
+    //         if(arr[mid] < target){
+    //             return select(arr,target,mid+1,high);
+    //         }
+    //         if(arr[mid] > target){
+    //             return select(arr,target,low,mid-1);
+    //         }
+    //     }
+    //     return -1;
+
+    // }
+    // let target = select(arr,100);
+    // console.log(target);
+    // console.log(arr.indexOf(5),'函数实现');
+
+
+    // 插入排序
+    // function insertSort(arr,state = 0){
+    //     for(let i = 1; i < arr.length; i++){
+    //         let temp = arr[i];
+    //         let j = i-1;
+    //         while( j >= 0 && (state ? arr[j] > temp : arr[j] < temp)){
+    //             arr[j+1] = arr[j];
+    //             j--;
+    //         }
+    //         arr[j+1] = temp;
+    //     }
+    //     return arr;
+    // }
+    // console.log(insertSort(arr));
+
+    // 快速排序
+    // function quick(arr){
+    //     if(arr.length <= 1){
+    //         return arr;
+    //     }
+    //     let left = [];
+    //     let right = [];
+    //     let bese = arr[0];
+
+    //     for(let i = 1; i < arr.length; i++){
+    //         if(arr[i] >= bese){
+    //             right.push(arr[i]);
+    //         }else{
+    //             left.push(arr[i]);
+    //         }
+    //     }
+    //     return [...quick(left),bese,...quick(right)];
+    // }
+
+    function quick_sort2(arr){
+        var _arr = arr.slice();//复制一份，以免影响之前的arr
+        return quick_sort(_arr,0,_arr.length-1);//进行排序
+    }
+    function quick_sort(arr,i,j){
+        if((j-i)<=1)//如果数组长度小于1，不用排序
+        {
+            return arr;
+        }
+        var left = i;
+        var right = j;
+        var base = left;
+        var center = arr[left];
+        while(left<right){
+            //从右向左扫描是否存在比基数小的数字
+            while(left<right && arr[right]>=center){
+                right--;
+            }
+            if(left<right){//将小于基数的数字放置到左侧
+                arr[left] = arr[right];
+                left++;
+            }
+            //从左向右扫描是否存在比基数大的数字
+            while(left<right && arr[left]<center){
+                left++;
+            }
+            if(left<right){
+                //将大于基数的数字放置到右侧
+                arr[right] = arr[left];
+                right--;
+            }
+        }
+        //更新基数
+        base = left;
+        arr[base] = center;
+        quick_sort(arr,i,base-1);//递归对左侧进行排序
+        quick_sort(arr,(base+1),j);//递归对右侧进行排序
+        
+        return arr;
+    }
+
+    function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    let arr = [];
+// 生成len长度的随机数组
+    function generateArr(len) {
+        for (var i = 0; i < len; i++) {
+            arr.push(random(1, len));
+        }
+    }
+    generateArr(10000000);
+    console.time('xm');
+    console.log(quick_sort2(arr));
+    console.timeEnd('xm');
+    </script>
+</body>
+</html>

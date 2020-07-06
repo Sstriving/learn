@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      .main {
+        width: 200px;
+        height: 200px;
+        border: 1px red solid;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="main">
+      <button class="btn">点击</button>
+      <div class="num">1</div>
+      <input type="text" id="debounce" />
+    </div>
+    <script>
+      let btn = document.getElementsByClassName("btn")[0];
+      let num = document.getElementsByClassName("num")[0];
+      let i = 1;
+      btn.addEventListener("click", throttleMax(click, 5000));
+      function click(content) {
+        console.log("click", this);
+        console.log("---------");
+        console.log(content);
+        i++;
+        num.innerHTML = i;
+      }
+
+      // 简易版
+      // 节流  在n秒内，只能有一次触发事件的回调函数执行,
+      function throttle(fn, time) {
+        let pre = 0;
+        return function (...args) {
+          let now = Date.now();
+          if (now - pre >= time || !pre) {
+            fn.call(this, ...args);
+            pre = now;
+          }
+        };
+      }
+
+      // 节流 ，在n秒内如果触发⌚事件、会在触发时间往后n秒再进行回掉函数执行
+
+      function throttleMax(fn, awit) {
+        let pre = 0;
+        let timeout = null;
+        return function (...args) {
+          let that = this;
+          let now = Date.now();
+          // 下次允许触发的时间点
+          let remaining = awit - (now - pre);
+          // 如果当前时间和上次触发的时间间隔大于 n，或者 第一次进来，则触发
+
+          if (awit <= 0 || !pre) {
+            fn.call(that, ...args);
+            pre = now;
+          } else {
+            // 如果在禁止触发的时间内，则应该延时多久后触发
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+              fn.call(that, ...args);
+              pre = Date.now();
+            }, remaining);
+          }
+        };
+      }
+
+      // 防抖  在事件触发n秒之后，再执行
+      function debounce(fn, time) {
+        let timer = null;
+        // 这块args参数，是为了拿到js的event对象
+        return function (...args) {
+          let that = this;
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            fn.call(that, ...args);
+          }, time);
+        };
+      }
+
+      window.onload = () => {
+        setInterval(() => {
+          throttle(click, 5000);
+        }, 1000);
+      };
+    </script>
+  </body>
+</html>

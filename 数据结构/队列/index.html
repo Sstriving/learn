@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    // 队列的实现  先进先出
+    /*
+    enqueue 从队列尾部添加一个元素 
+    dequeue 从队列头部删除一个元素
+    head 返回头部元素 看看
+    size 返回队列大小
+    clear 清空
+    isEmpty 判断队列是否为空
+    tail 返回队尾节点
+     */
+    function Queue() {
+      let items = [];
+      this.enqueue = item => {
+        items.push(item);
+      }
+      this.dequeue = () => {
+        return items.shift();
+      }
+      this.head = () => {
+        if (items.length) {
+          return items[0];
+        }
+        return ''
+      }
+      this.size = () => {
+        return items.length;
+      }
+      this.clear = () => {
+        items = [];
+      }
+      this.isEmpty = () => {
+        return items.length ? true : false;
+      }
+      this.tail = () => {
+        return items[items.length - 1];
+      }
+    }
+
+    // 练习题 1 数组0-99， 每隔两个数删掉一个数，到末尾时循环至开头继续进行。求最后一个被删除的数
+
+    function del_string(arr_list) {
+      let queue = new Queue();
+      for (let i = 0; i < arr_list.length; i++) {
+        queue.enqueue(arr_list[i]);
+      }
+      let index = 0;
+      while (queue.size() !== 1) {
+        let last = queue.dequeue();
+        index += 1;
+        if (index % 3 !== 0) {
+          queue.enqueue(last);
+        }
+      }
+      return queue.head();
+    }
+    let arr_list = [];
+    for (let i = 1; i < 100; i++) {
+      arr_list.push(i);
+    }
+    console.log(del_string(arr_list));
+
+    // 练习题 2 斐波纳切数列的实现 队列  1 1 2 3 5 8 13 21 34
+
+    function fibonacci(num) {
+      let index = 2;
+      let queue = new Queue();
+      queue.enqueue(1);
+      queue.enqueue(1);
+      while (index < num) {
+        a = queue.dequeue();
+        b = queue.head();
+        queue.enqueue(a + b);
+        index += 1;
+      }
+      queue.dequeue();
+      return queue.head();
+    }
+
+    // 其他实现
+    function fibonacci1(num) {
+      let a = 1;
+      let b = 1;
+      let index = 0;
+      if (num === 1) return 1;
+      if (num === 2) return 1;
+      while (index < num - 2) {
+        let temp = b;
+        b = a + b;
+        a = temp;
+        index += 1;
+      }
+      return b;
+    }
+    console.log(fibonacci(7));
+    console.log(fibonacci1(7));
+
+
+    // 练习题 杨辉三角 
+
+    let arr = [
+      [0, 0, 0, 1, 1, 0, 1],
+      [1, 0, 0, 0, 1, 0, 1],
+      [1, 0, 0, 0, 1, 0, 1],
+      [0, 0, 0, 0, 0, 1, 1],
+      [0, 1, 0, 1, 1, 0, 1],
+    ]
+    // 迷宫找最短路径 
+    function findMinLength(arr, start, end) {
+      let queue = new Queue();
+      if (arr[start.x][start.y] === 0 || arr[end.x][start.y] === 0) return false;
+
+      let a = arr[start.x][start.y - 1];
+      let b = arr[start.x][start.y + 1];
+      let c = arr[start.x - 1][start.y];
+      let d = arr[start.x + 1][start.y];
+      // if(a) 
+
+    }
+    let start = { x: 1, y: 2 };
+    let end = { x: 3, y: 4 };
+    let res = findMinLength(arr, start, end);
+    console.log('最短路径', res);
+
+  </script>
+</body>
+
+</html>

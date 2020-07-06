@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 盏的实现
+        /*******
+        盏有哪些方法
+        push ： 添加一个元素到栈顶
+        pop ： 弹出一个栈顶元素
+        top ： 返回栈顶元素，但不删除
+        isEmpty ： 判断栈是否为空
+        size ： 返回栈的个数
+        clear ： 清空栈
+        *****/
+        function Stack() {
+            let items = [];
+            // 压栈
+            this.push = (item) => {
+                items.push(item);
+            }
+            // 弹出盏顶元素
+            this.pop = () => {
+                return items.pop()
+            }
+
+            // 返回盏顶元素
+            this.top = () => {
+                return items[items.length - 1];
+            }
+
+            // 判断栈是否为空
+            this.isEmpty = () => {
+                return items.length === 0;
+            }
+            // 返回栈的大小
+            this.size = () => {
+                return items.length;
+            }
+
+            // 清空栈
+            this.clear = () => {
+                items = [];
+            }
+        }
+        let a = new Stack()
+        // console.log(a.pop());
+        console.log(a);
+
+        // 判断括号匹配
+        function is_leagl_brackets(string) {
+            let stack = new Stack();
+
+            for (let i = 0; i < string.length; i++) {
+                let item = string[i];
+                if (item === '(') {
+                    stack.push(item);
+                }
+
+                if (item === ')') {
+                    if (stack.isEmpty()) {
+                        return false
+                    } else {
+                        stack.pop();
+                    }
+                }
+
+            }
+            return stack.isEmpty();
+        }
+        var exp_1 = ["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+", '11'];
+        // 逆波兰表达式 
+        // (a+b) * (c+d) 转换为 ab+cd+*
+        function calc_exp(exp) {
+            let stack = new Stack();
+            for (let i = 0; i < exp_1.length; i++) {
+                let item = exp_1[i];
+                if (['/', '*', '-', '+'].includes(item)) {
+                    if (stack.isEmpty()) {
+                        return '表达式不合格';
+                    }
+                    let item1 = stack.pop();
+                    let item2 = stack.pop();
+                    let item3 = item2 + item + item1;
+                    let res = parseInt(eval(item3));
+                    stack.push(res);
+                } else {
+                    stack.push(item);
+                }
+            }
+            return stack.size === 1 ? stack.pop() : '表达式不合格';
+        }
+        console.log(calc_exp(exp_1));
+        // 实现一个栈，提供一个min的方法，返回栈里面最小的元素，复杂度为o(1）
+        function NewStack() {
+            let data_stack = new Stack();
+            let min_stack = new Stack();
+
+            this.push = (item) => {
+                data_stack.push(item);
+                if (min_stack.isEmpty() || item < min_stack.top()) {
+                    min_stack.push(item);
+                } else {
+                    min_stack.push(min_stack.top());
+                }
+            }
+            this.pop = () => {
+                data_stack.pop();
+                min_stack.pop();
+            }
+            this.min = () => {
+                return min_stack.top();
+            }
+        }
+
+        let minstack = new NewStack();
+        // minstack.push(3);
+        // minstack.push(6);
+        // minstack.push(8);
+        // console.log(minstack.min());
+        // minstack.push(2);
+        // console.log(minstack.min());
+        // console.log(minstack);
+
+        // 中序表达式转后续表达式
+
+    </script>
+</body>
+
+</html>

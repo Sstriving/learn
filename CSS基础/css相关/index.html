@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #a {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: absolute;
+            z-index: 1
+        }
+        #b {
+            width: 200px;
+            height: 400px;
+            position: absolute;
+            z-index: 100;
+            transform: rotate(15deg); 
+            background-color:yellow;
+        }
+        .c{
+            width: 30%;
+            background-color:violet;
+            overflow: hidden;
+        }
+        .c::after{
+            content: '';
+            display: block;
+            margin-top: 100%;
+        }
+
+        .title {
+            color: red;
+        }
+        .title1 {
+             color: yellow;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- <div id="a">        
+    </div>
+    <div id="b">
+
+    </div> -->
+    <div class="c">
+        1231232
+    </div>
+
+
+    <div class="title title1" >
+            你是什么颜色
+    </div>
+</body>
+</html>

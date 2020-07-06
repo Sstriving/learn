@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script>
+        let arr = [1, 2, 3, 4, 5];
+        const add = (pre, cur) => pre + cur
+        let res = arr.reduce(add);
+        console.log(res)
+
+        let arr1 = ['5', '6', '7', '7', '7'];
+        let arr2 = arr1.reduce((pre, cur) => {
+            console.log(pre)
+            if (cur in  pre) {
+                pre[cur]++
+            } else {
+                pre[cur] = 1;
+            }
+            return pre;
+        },{})
+        console.log(arr2)
+        console.log(Array.prototype)
+    </script>
+</body>
+
+</html>

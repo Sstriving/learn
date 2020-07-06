@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <select name="" id="" onchange="changeType(event)">
+      <option value="sine">正弦波</option>
+      <option value="square">方波</option>
+      <option value="triangle">三角波</option>
+      <option value="sawtooth">锯齿波</option>
+    </select>
+    <label for="">音调：</label>
+    <input type="text" value="0" onchange="changeFre(event)" />
+    <button id="btn">响</button>
+  </body>
+</html>
+
+<script>
+  const btnDom = document.querySelector("#btn");
+  let frequencyValue = 0;
+  let type = "sine";
+  btnDom.addEventListener("click", () => {
+    let i = 0;
+    let timer = null;
+
+    timer = setInterval(() => {
+      i++;
+      if (i >= 5) {
+        clearInterval(timer);
+      }
+      beep(frequencyValue, type);
+    }, 1000);
+  });
+
+  function beep(frequencyValue, type) {
+    // 创建一个音频上下文
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // 创建一个 OscillatorNode ， 控制音调
+    const oscillator = audioCtx.createOscillator();
+
+    // 创建一个 GainNode ，可以控制音频的总音量
+    const gainNode = audioCtx.createGain();
+
+    // 音调和音量关联
+    oscillator.connect(gainNode);
+
+    // 和音频设备关联
+    gainNode.connect(audioCtx.destination);
+    // 声音波形指定为 'sine'，正弦波
+    // ‘square’ 方波，‘triangle’：三角波 ，‘sawtooth’：锯齿波
+    oscillator.type = type;
+
+    // 设置波形的频率，，可以理解为声音的音调，
+    // 数值越小，声音越低沉，越大提琴；数值越大，声音越清脆，越小提琴
+    oscillator.frequency.value = frequencyValue;
+
+    // 此方法支持两个参数、一个是音量，一个是时间
+    gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+
+    // 0.01秒后音量为1
+    gainNode.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 0.01);
+
+    // 音调从当前时间开始播放
+    oscillator.start(audioCtx.currentTime);
+
+    // 1秒内声音慢慢降低，是个不错的停止声音的方法
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1);
+    // 1秒后完全停止声音
+    oscillator.stop(audioCtx.currentTime + 1);
+  }
+
+  // 改变频率
+  function changeFre(e) {
+    frequencyValue = +e.target.value;
+  }
+  // 改变声音波型
+  function changeType(e) {
+    type = e.target.value;
+  }
+</script>
