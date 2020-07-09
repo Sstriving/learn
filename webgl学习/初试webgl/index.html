@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>webgl demo</title>
+  </head>
+  <body>
+    <canvas id="glcanvas" width="640" height="480">
+      你的浏览器不支持HTML5 canvas 元素.
+    </canvas>
+  </body>
+  <script>
+    function main() {
+      const canvas = document.querySelector("#glcanvas");
+      // 初始化webgl上下文
+      const gl = canvas.getContext("webgl2");
+      console.log(gl, "这是个啥?");
+      if (!gl) {
+        alert("无法初始化WebGL，你的浏览器、操作系统或硬件等可能不支持WebGL。");
+        return;
+      }
+      gl.clearColor(0, 0, 0, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+    }
+
+    // 初始化着色器程序、让webgl 知道如何绘制我们的数据
+    function initShaderProgram(gl, vsSource, fsSource) {
+      const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
+      const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+
+      // 创建着色器程序
+      const shaderProgram = gl.createProgram();
+      gl.attachShader(shaderProgram, vertexShader);
+      gl.attachShader(shaderProgram, fragmentShader);
+      gl.linkProgram(shaderProgram);
+
+      // 创建失败， alert
+      if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+        alert(
+          "Unable to initialize the shader program: " +
+            gl.getProgramInfoLog(shaderProgram)
+        );
+        return null;
+      }
+
+      return shaderProgram;
+    }
+
+    // 创建指定类型的着色器，上传source源码并编译
+    function loadShader(gl, type, source) {
+      // 创建着色器
+      const shader = gl.createShader(type);
+
+      // 发送source源码 到着色器
+      gl.shaderSource(shader, source);
+
+      // 编译着色器程序
+      gl.compileShader(shader);
+
+      // 判断是否完成
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        alert("An error:" + gl.getShaderInfoLog(shader));
+        gl.deleteShader(shader);
+        return null;
+      }
+      return shader;
+    }
+    // 顶点着色器
+    const vsSource = `
+    attribute vec4 aVertexPosition; 
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+
+    void main() {
+      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+    }
+    `;
+
+    // 片段着色器
+    const fsSource = `
+    void main() {
+      gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    }
+  `;
+
+    main();
+  </script>
+</html>
