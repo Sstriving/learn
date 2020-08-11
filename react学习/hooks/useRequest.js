@@ -42,6 +42,7 @@ export const useRequest = (fn, dependencies) => {
   useEffect(() => {
     const cancelRquest = request();
     return () => {
+      // quxiao fule hahaha
       cancelRquest();
     };
   }, [...dependencies]);

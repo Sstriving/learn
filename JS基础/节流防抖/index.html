@@ -58,7 +58,7 @@
           let remaining = awit - (now - pre);
           // 如果当前时间和上次触发的时间间隔大于 n，或者 第一次进来，则触发
 
-          if (awit <= 0 || !pre) {
+          if (remaining <= 0 || !pre) {
             fn.call(that, ...args);
             pre = now;
           } else {
